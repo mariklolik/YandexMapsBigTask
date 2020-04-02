@@ -1,0 +1,4 @@
+весь код в code.py
+все ui_исходники в ui_source
+все ui_в питоне в ui_py
+писать в code.py
