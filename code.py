@@ -21,11 +21,14 @@ class MainWindow(QWidget, UiMainWindow):
         self.setGeometry(100, 100, 620, 450)
         self.MapImage.move(0, 0)
         self.MapImage.resize(620, 455)
-        self.pars = [83.780402, 53.345144, 0.02, 0.02, 'map']
+        self.pars = [83.780402, 53.345144, 0.02, 0.02, 'map', True]
         self.ButtonSearch.clicked.connect(self.searchCity)
         self.ButtonChange.clicked.connect(self.changeType)
         self.getImage(*self.pars)
         self.setImage()
+
+    def toFixed(numObj, digits=3):
+        return f"{numObj:.{digits}f}"
 
     def searchCity(self):
         CityName = self.InputSearch.text()
@@ -50,9 +53,9 @@ class MainWindow(QWidget, UiMainWindow):
         toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
         spn1 = str(abs(float(size1[0]) - float(size2[0])))
         spn2 = str(abs(float(size1[1]) - float(size2[1])))
-        self.pars[0] = toponym_longitude
-        self.pars[1] = toponym_lattitude
-        self.pars[2], self.pars[3] = spn1, spn2
+        self.pars[0] = float(toponym_longitude)
+        self.pars[1] = float(toponym_lattitude)
+        self.pars[2], self.pars[3] = float(spn1), float(spn2)
 
     def changeType(self):
         self.type_now = (self.type_now + 1) % 4
@@ -60,11 +63,15 @@ class MainWindow(QWidget, UiMainWindow):
         self.getImage(*self.pars)
         self.setImage()
 
-    def getImage(self, long=83.780402, lat=53.345144, spn1=0.02, spn2=0.02, typ='map'):
+    def getImage(self, long=83.780402, lat=53.345144, spn1=0.02, spn2=0.02, typ='map', pt=None):
+        map_api_server = 'http://static-maps.yandex.ru/1.x/'
+        map_params = {"ll": f'{long},{lat}',
+                      "spn": f"{spn1},{spn2}",
+                      "l": typ}
+        if self.pars[5]:
+            map_params['pt'] = f'{long},{lat},pm2dgl'
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={long},{lat}&spn={spn1},{spn2}&l={typ}"
-        print(map_request)
-        response = requests.get(map_request)
-
+        response = requests.get(map_api_server, params=map_params)
         if not response:
             print("Ошибка выполнения запроса:")
             print(map_request)
