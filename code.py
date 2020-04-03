@@ -5,7 +5,10 @@ from MainWindow import UiMainWindow
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
 from PyQt5.QtGui import QPixmap, QPalette, QFont, QBrush, QImage
 from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
+
 SCREEN_SIZE = ()
+
 
 class MainWindow(QWidget, UiMainWindow):
     def __init__(self):
@@ -13,9 +16,10 @@ class MainWindow(QWidget, UiMainWindow):
         self.setupUi(self)
         self.setWindowTitle('Карты')
         self.map_file = None
-        self.setGeometry(0, 0, 620, 450)
+        self.setGeometry(0, 10, 620, 450)
         self.MapImage.move(0, 0)
         self.MapImage.resize(620, 455)
+        self.pars = [83.780402, 53.345144, 0.02, 0.02]
         self.getImage()
         self.setImage()
 
@@ -27,7 +31,7 @@ class MainWindow(QWidget, UiMainWindow):
             print("Ошибка выполнения запроса:")
             print(map_request)
             print("Http статус:", response.status_code, "(", response.reason, ")")
-            sys.exit(1)
+            raise ValueError
 
         # Запишем полученное изображение в файл.
         self.map_file = "map.png"
@@ -42,6 +46,25 @@ class MainWindow(QWidget, UiMainWindow):
     def closeEvent(self, event):
         """При закрытии формы подчищаем за собой"""
         os.remove(self.map_file)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_PageUp:
+            if self.pars[2] >= 0.000625 and self.pars[3] >= 0.000625:
+                self.pars[2] /= 2
+                self.pars[3] /= 2
+            else:
+                self.pars[2] = 0.000625
+                self.pars[3] = 0.000625
+            self.getImage(*self.pars)
+            self.setImage()
+        if event.key() == Qt.Key_PageDown:
+            try:
+                self.pars[2] *= 2
+                self.pars[3] *= 2
+                self.getImage(*self.pars)
+                self.setImage()
+            except ValueError:
+                self.pars[2], self.pars[3] = 81.92, 81.92
 
 
 a = QApplication(sys.argv)
