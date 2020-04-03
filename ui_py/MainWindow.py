@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'main2.ui'
+# Form implementation generated from reading ui file 'main456.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.1
 #
@@ -11,25 +11,54 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class UiMainWindow(object):
-    def setupUi(self, UiMainWindow):
-        UiMainWindow.setObjectName("UiMainWindow")
-        UiMainWindow.resize(400, 300)
-        self.gridLayout = QtWidgets.QGridLayout(UiMainWindow)
-        self.gridLayout.setObjectName("gridLayout")
-        self.MapImage = QtWidgets.QLabel(UiMainWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(650, 536)
+        self.verticalLayout = QtWidgets.QVBoxLayout(Form)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.MapImage = QtWidgets.QLabel(Form)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.MapImage.sizePolicy().hasHeightForWidth())
         self.MapImage.setSizePolicy(sizePolicy)
-        self.MapImage.setScaledContents(True)
+        self.MapImage.setMinimumSize(QtCore.QSize(620, 450))
         self.MapImage.setObjectName("MapImage")
-        self.gridLayout.addWidget(self.MapImage, 0, 0, 1, 1)
+        self.verticalLayout.addWidget(self.MapImage)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.ButtonChange = QtWidgets.QPushButton(Form)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.ButtonChange.sizePolicy().hasHeightForWidth())
+        self.ButtonChange.setSizePolicy(sizePolicy)
+        self.ButtonChange.setObjectName("ButtonChange")
+        self.horizontalLayout.addWidget(self.ButtonChange)
+        self.ButtonSearch = QtWidgets.QPushButton(Form)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.ButtonSearch.sizePolicy().hasHeightForWidth())
+        self.ButtonSearch.setSizePolicy(sizePolicy)
+        self.ButtonSearch.setObjectName("ButtonSearch")
+        self.horizontalLayout.addWidget(self.ButtonSearch)
+        self.InputSearch = QtWidgets.QLineEdit(Form)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.InputSearch.sizePolicy().hasHeightForWidth())
+        self.InputSearch.setSizePolicy(sizePolicy)
+        self.InputSearch.setObjectName("InputSearch")
+        self.horizontalLayout.addWidget(self.InputSearch)
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
-        self.retranslateUi(UiMainWindow)
-        QtCore.QMetaObject.connectSlotsByName(UiMainWindow)
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
 
-    def retranslateUi(self, UiMainWindow):
+    def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        UiMainWindow.setWindowTitle(_translate("UiMainWindow", "Form"))
-        self.MapImage.setText(_translate("UiMainWindow", "TextLabel"))
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.MapImage.setText(_translate("Form", "Барнаааууууууууууул"))
+        self.ButtonChange.setText(_translate("Form", "Поменять вид"))
+        self.ButtonSearch.setText(_translate("Form", "Поиск"))
