@@ -68,7 +68,7 @@ class MainWindow(QWidget, UiMainWindow):
         if event.key() == Qt.Key_Up:
             try:
                 self.pars[1] += self.pars[3]
-                print(self.pars)
+
                 self.getImage(*self.pars)
                 self.setImage()
             except ValueError:
@@ -76,7 +76,7 @@ class MainWindow(QWidget, UiMainWindow):
         if event.key() == Qt.Key_Down:
             try:
                 self.pars[1] -= self.pars[3]
-                print(self.pars)
+
                 self.getImage(*self.pars)
                 self.setImage()
             except ValueError:
@@ -84,7 +84,7 @@ class MainWindow(QWidget, UiMainWindow):
         if event.key() == Qt.Key_Left:
             try:
                 self.pars[0] -= self.pars[2]
-                print(self.pars)
+
                 self.getImage(*self.pars)
                 self.setImage()
             except ValueError:
@@ -92,7 +92,7 @@ class MainWindow(QWidget, UiMainWindow):
         if event.key() == Qt.Key_Right:
             try:
                 self.pars[0] += self.pars[2]
-                print(self.pars)
+
                 self.getImage(*self.pars)
                 self.setImage()
             except ValueError:
