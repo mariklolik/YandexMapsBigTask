@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee152dbc-e4c7-4475-9ca6-8de2c94b6812" name="Default" comment="task 2 completed">
+    <list default="true" id="ee152dbc-e4c7-4475-9ca6-8de2c94b6812" name="Default" comment="task 3 completed finally">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +16,7 @@
   <component name="ProjectId" id="1ZzcEau9ilvuxNxT4uikDjABI2V" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -77,7 +77,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585897478186</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="task 3 completed">
+      <created>1585899115368</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1585899115368</updated>
+    </task>
+    <task id="LOCAL-00003" summary="task 3 completed finally">
+      <created>1585899175113</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1585899175113</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -121,6 +135,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="task 2 completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="task 2 completed" />
+    <MESSAGE value="task 3 completed" />
+    <MESSAGE value="task 3 completed finally" />
+    <option name="LAST_COMMIT_MESSAGE" value="task 3 completed finally" />
   </component>
 </project>
