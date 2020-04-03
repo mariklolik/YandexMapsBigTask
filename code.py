@@ -16,15 +16,53 @@ class MainWindow(QWidget, UiMainWindow):
         self.setupUi(self)
         self.setWindowTitle('Карты')
         self.map_file = None
-        self.setGeometry(0, 10, 620, 450)
+        self.types = ['map', 'sat', 'trf', 'map,trf']
+        self.type_now = 0
+        self.setGeometry(100, 100, 620, 450)
         self.MapImage.move(0, 0)
         self.MapImage.resize(620, 455)
-        self.pars = [83.780402, 53.345144, 0.02, 0.02]
-        self.getImage()
+        self.pars = [83.780402, 53.345144, 0.02, 0.02, 'map']
+        self.ButtonSearch.clicked.connect(self.searchCity)
+        self.ButtonChange.clicked.connect(self.changeType)
+        self.getImage(*self.pars)
         self.setImage()
 
-    def getImage(self, long=83.780402, lat=53.345144, spn1=0.02, spn2=0.02):
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={long},{lat}&spn={spn1},{spn2}&l=map"
+    def searchCity(self):
+        CityName = self.InputSearch.text()
+        self.setCoordinates_setSpn(CityName)
+        self.getImage(*self.pars)
+        self.setImage()
+
+    def setCoordinates_setSpn(self, city_name):
+        toponym_to_find = city_name
+        geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
+        geocoder_params = {
+            "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
+            "geocode": toponym_to_find,
+            "format": "json"}
+        response = requests.get(geocoder_api_server, params=geocoder_params)
+        json_response = response.json()
+        toponym = json_response["response"]["GeoObjectCollection"][
+            "featureMember"][0]["GeoObject"]
+        size1 = toponym["boundedBy"]['Envelope']['lowerCorner'].split()
+        size2 = toponym["boundedBy"]['Envelope']['upperCorner'].split()
+        toponym_coodrinates = toponym["Point"]["pos"]
+        toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
+        spn1 = str(abs(float(size1[0]) - float(size2[0])))
+        spn2 = str(abs(float(size1[1]) - float(size2[1])))
+        self.pars[0] = toponym_longitude
+        self.pars[1] = toponym_lattitude
+        self.pars[2], self.pars[3] = spn1, spn2
+
+    def changeType(self):
+        self.type_now = (self.type_now + 1) % 4
+        self.pars[4] = self.types[self.type_now]
+        self.getImage(*self.pars)
+        self.setImage()
+
+    def getImage(self, long=83.780402, lat=53.345144, spn1=0.02, spn2=0.02, typ='map'):
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll={long},{lat}&spn={spn1},{spn2}&l={typ}"
+        print(map_request)
         response = requests.get(map_request)
 
         if not response:
@@ -34,7 +72,10 @@ class MainWindow(QWidget, UiMainWindow):
             raise ValueError
 
         # Запишем полученное изображение в файл.
-        self.map_file = "map.png"
+        if self.pars[4] != 'sat':
+            self.map_file = "map.png"
+        else:
+            self.map_file = 'map.jpg'
         with open(self.map_file, "wb") as file:
             file.write(response.content)
 
@@ -47,7 +88,14 @@ class MainWindow(QWidget, UiMainWindow):
         """При закрытии формы подчищаем за собой"""
         os.remove(self.map_file)
 
+    def disable_buttons(self, disabler=True):
+        self.InputSearch.setDisabled(disabler)
+        self.ButtonChange.setDisabled(disabler)
+        self.ButtonSearch.setDisabled(disabler)
+
     def keyPressEvent(self, event):
+        if event.key() in [16777234, 16777235, 16777236, 16777237]:
+            self.disable_buttons()
         if event.key() == Qt.Key_PageUp:
             if self.pars[2] >= 0.000625 and self.pars[3] >= 0.000625:
                 self.pars[2] /= 2
@@ -57,6 +105,7 @@ class MainWindow(QWidget, UiMainWindow):
                 self.pars[3] = 0.000625
             self.getImage(*self.pars)
             self.setImage()
+            self.disable_buttons(False)
         if event.key() == Qt.Key_PageDown:
             try:
                 self.pars[2] *= 2
@@ -65,7 +114,9 @@ class MainWindow(QWidget, UiMainWindow):
                 self.setImage()
             except ValueError:
                 self.pars[2], self.pars[3] = 81.92, 81.92
+            self.disable_buttons(False)
         if event.key() == Qt.Key_Up:
+
             try:
                 self.pars[1] += self.pars[3]
 
@@ -73,6 +124,7 @@ class MainWindow(QWidget, UiMainWindow):
                 self.setImage()
             except ValueError:
                 self.pars[1] -= self.pars[3]
+            self.disable_buttons(False)
         if event.key() == Qt.Key_Down:
             try:
                 self.pars[1] -= self.pars[3]
@@ -81,7 +133,9 @@ class MainWindow(QWidget, UiMainWindow):
                 self.setImage()
             except ValueError:
                 self.pars[1] += self.pars[3]
+            self.disable_buttons(False)
         if event.key() == Qt.Key_Left:
+            self.InputSearch.setDisabled(True)
             try:
                 self.pars[0] -= self.pars[2]
 
@@ -89,6 +143,7 @@ class MainWindow(QWidget, UiMainWindow):
                 self.setImage()
             except ValueError:
                 self.pars[0] += self.pars[2]
+            self.disable_buttons(False)
         if event.key() == Qt.Key_Right:
             try:
                 self.pars[0] += self.pars[2]
@@ -97,6 +152,7 @@ class MainWindow(QWidget, UiMainWindow):
                 self.setImage()
             except ValueError:
                 self.pars[0] -= self.pars[2]
+            self.disable_buttons(False)
 
 
 a = QApplication(sys.argv)

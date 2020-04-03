@@ -1,0 +1,42 @@
+[33mcommit a5344b685f93c0fc7c42bcde4f0bb3f603b8f20d[m[33m ([m[1;36mHEAD -> [m[1;32mtest_branch[m[33m, [m[1;31morigin/test_branch[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: kirill <kirya.smart.03@gmail.com>
+Date:   Fri Apr 3 14:32:55 2020 +0700
+
+    task 3 completed finally
+
+[33mcommit 6b398091f6a355f551532e5b947eb8db7e0cc820[m
+Author: kirill <kirya.smart.03@gmail.com>
+Date:   Fri Apr 3 14:31:55 2020 +0700
+
+    task 3 completed
+
+[33mcommit 2b9e6112a00dce1fe92d8d538b07e5be8f3edd48[m
+Author: kirill <kirya.smart.03@gmail.com>
+Date:   Fri Apr 3 14:04:37 2020 +0700
+
+    task 2 completed
+
+[33mcommit 0004f17dbc7f436ceb38a6374cf8761a507c8200[m
+Merge: 73a8d14 e071094
+Author: kirill <kirya.smart.03@gmail.com>
+Date:   Thu Apr 2 23:40:27 2020 +0700
+
+    Merge remote-tracking branch 'origin/test_branch' into test_branch
+
+[33mcommit 73a8d14d9a9b44bf0c9ddff6dacd851a8b9f19fa[m
+Author: kirill <kirya.smart.03@gmail.com>
+Date:   Thu Apr 2 23:39:48 2020 +0700
+
+    .
+
+[33mcommit e071094233f09bd0a04251089d534e87f24a21d7[m
+Author: mariklolik <41217710+mariklolik@users.noreply.github.com>
+Date:   Thu Apr 2 23:36:04 2020 +0700
+
+    Create кирlil читай.txt
+
+[33mcommit 6d60e6044138d853d6bd807804e7f5317779aba4[m
+Author: mariklolik <marshelo44@gmail.com>
+Date:   Thu Apr 2 23:04:23 2020 +0700
+
+    Added All Files
