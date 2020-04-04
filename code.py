@@ -31,6 +31,7 @@ class MainWindow(QWidget, Ui_Form):
     def dischange(self):
         self.pars[-1] = False
         self.InputSearch.setText("")
+        self.adress.setText("")
         self.getImage(*self.pars)
         self.setImage()
 
@@ -58,6 +59,10 @@ class MainWindow(QWidget, Ui_Form):
             "featureMember"][0]["GeoObject"]
         size1 = toponym["boundedBy"]['Envelope']['lowerCorner'].split()
         size2 = toponym["boundedBy"]['Envelope']['upperCorner'].split()
+        adress = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"][
+                "metaDataProperty"][
+                "GeocoderMetaData"]["text"]
+        self.adress.setText(adress)
         toponym_coodrinates = toponym["Point"]["pos"]
         toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
         spn1 = str(abs(float(size1[0]) - float(size2[0])))
