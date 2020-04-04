@@ -34,11 +34,22 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="adress">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="adress">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="showindex">
+       <property name="text">
+        <string>показывать почтовый индекс</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">

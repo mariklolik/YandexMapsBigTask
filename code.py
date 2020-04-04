@@ -60,8 +60,17 @@ class MainWindow(QWidget, Ui_Form):
         size1 = toponym["boundedBy"]['Envelope']['lowerCorner'].split()
         size2 = toponym["boundedBy"]['Envelope']['upperCorner'].split()
         adress = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"][
-                "metaDataProperty"][
-                "GeocoderMetaData"]["text"]
+            "metaDataProperty"][
+            "GeocoderMetaData"]["text"]
+        if self.showindex.isChecked():
+            try:
+                adress += ", " + \
+                      json_response["response"]["GeoObjectCollection"]["featureMember"][0][
+                          "GeoObject"][
+                          "metaDataProperty"][
+                          "GeocoderMetaData"]["Address"]["postal_code"]
+            except KeyError:
+                pass
         self.adress.setText(adress)
         toponym_coodrinates = toponym["Point"]["pos"]
         toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
@@ -115,6 +124,7 @@ class MainWindow(QWidget, Ui_Form):
         self.ButtonChange.setDisabled(disabler)
         self.ButtonSearch.setDisabled(disabler)
         self.dischangeButton.setDisabled(disabler)
+        self.showindex.setDisabled(disabler)
 
     def keyPressEvent(self, event):
         if event.key() in [16777234, 16777235, 16777236, 16777237]:
