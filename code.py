@@ -22,6 +22,7 @@ class MainWindow(QWidget, UiMainWindow):
         self.MapImage.move(0, 0)
         self.MapImage.resize(620, 455)
         self.pars = [83.780402, 53.345144, 0.02, 0.02, 'map', True]
+        self.mc = [83.780402, 53.345144]
         self.ButtonSearch.clicked.connect(self.searchCity)
         self.ButtonChange.clicked.connect(self.changeType)
         self.getImage(*self.pars)
@@ -35,6 +36,7 @@ class MainWindow(QWidget, UiMainWindow):
         self.setCoordinates_setSpn(CityName)
         self.getImage(*self.pars)
         self.setImage()
+        self.disable_buttons(True)
 
     def setCoordinates_setSpn(self, city_name):
         toponym_to_find = city_name
@@ -55,6 +57,7 @@ class MainWindow(QWidget, UiMainWindow):
         spn2 = str(abs(float(size1[1]) - float(size2[1])))
         self.pars[0] = float(toponym_longitude)
         self.pars[1] = float(toponym_lattitude)
+        self.mc = [self.pars[0], self.pars[1]]
         self.pars[2], self.pars[3] = float(spn1), float(spn2)
 
     def changeType(self):
@@ -68,8 +71,8 @@ class MainWindow(QWidget, UiMainWindow):
         map_params = {"ll": f'{long},{lat}',
                       "spn": f"{spn1},{spn2}",
                       "l": typ}
-        if self.pars[5]:
-            map_params['pt'] = f'{long},{lat},pm2dgl'
+        if pt:
+            map_params['pt'] = f'{self.mc[0]},{self.mc[1]},pm2dgl'
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={long},{lat}&spn={spn1},{spn2}&l={typ}"
         response = requests.get(map_api_server, params=map_params)
         if not response:

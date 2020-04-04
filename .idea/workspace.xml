@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ee152dbc-e4c7-4475-9ca6-8de2c94b6812" name="Default" comment="task 3 completed finally">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui_py/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui_py/__main__.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585899175113</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="task 3 completed finally">
+      <created>1585930296451</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585930296451</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
