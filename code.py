@@ -1,7 +1,6 @@
 import sys, os, requests
 
-sys.path.append(os.path.join(os.getcwd(), 'ui_py'))
-from MainWindow import UiMainWindow
+from ui_py.MainWindow import Ui_Form
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
 from PyQt5.QtGui import QPixmap, QPalette, QFont, QBrush, QImage
 from PyQt5 import QtCore
@@ -10,7 +9,7 @@ from PyQt5.QtCore import Qt
 SCREEN_SIZE = ()
 
 
-class MainWindow(QWidget, UiMainWindow):
+class MainWindow(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -21,10 +20,17 @@ class MainWindow(QWidget, UiMainWindow):
         self.setGeometry(100, 100, 620, 450)
         self.MapImage.move(0, 0)
         self.MapImage.resize(620, 455)
-        self.pars = [83.780402, 53.345144, 0.02, 0.02, 'map', True]
+        self.pars = [83.780402, 53.345144, 0.02, 0.02, 'map', False]
         self.mc = [83.780402, 53.345144]
         self.ButtonSearch.clicked.connect(self.searchCity)
         self.ButtonChange.clicked.connect(self.changeType)
+        self.getImage(*self.pars)
+        self.setImage()
+        self.dischangeButton.clicked.connect(self.dischange)
+
+    def dischange(self):
+        self.pars[-1] = False
+        self.InputSearch.setText("")
         self.getImage(*self.pars)
         self.setImage()
 
@@ -32,6 +38,7 @@ class MainWindow(QWidget, UiMainWindow):
         return f"{numObj:.{digits}f}"
 
     def searchCity(self):
+        self.pars[-1] = True
         CityName = self.InputSearch.text()
         self.setCoordinates_setSpn(CityName)
         self.getImage(*self.pars)
@@ -102,6 +109,7 @@ class MainWindow(QWidget, UiMainWindow):
         self.InputSearch.setDisabled(disabler)
         self.ButtonChange.setDisabled(disabler)
         self.ButtonSearch.setDisabled(disabler)
+        self.dischangeButton.setDisabled(disabler)
 
     def keyPressEvent(self, event):
         if event.key() in [16777234, 16777235, 16777236, 16777237]:

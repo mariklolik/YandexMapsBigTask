@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee152dbc-e4c7-4475-9ca6-8de2c94b6812" name="Default" comment="task 3 completed finally">
+    <list default="true" id="ee152dbc-e4c7-4475-9ca6-8de2c94b6812" name="Default" comment="task 6 completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui_py/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui_py/__main__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui_py/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui_py/MainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui_source/main456.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui_source/main456.ui" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -22,6 +28,11 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Кирил\Desktop\python\YandexMapsBigTask\ui_py" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -102,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585930296451</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="task 6 completed">
+      <created>1586001377708</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1586001377708</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -148,6 +166,18 @@
     <MESSAGE value="task 2 completed" />
     <MESSAGE value="task 3 completed" />
     <MESSAGE value="task 3 completed finally" />
-    <option name="LAST_COMMIT_MESSAGE" value="task 3 completed finally" />
+    <MESSAGE value="task 6 completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="task 6 completed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/code.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
