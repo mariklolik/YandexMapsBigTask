@@ -2,18 +2,16 @@
 
 # Form implementation generated from reading ui file 'main456.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(650, 536)
+        Form.resize(643, 536)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.MapImage = QtWidgets.QLabel(Form)
@@ -25,6 +23,8 @@ class Ui_Form(object):
         self.MapImage.setMinimumSize(QtCore.QSize(620, 450))
         self.MapImage.setObjectName("MapImage")
         self.verticalLayout.addWidget(self.MapImage)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.adress = QtWidgets.QLabel(Form)
@@ -35,6 +35,8 @@ class Ui_Form(object):
         self.showindex.setObjectName("showindex")
         self.horizontalLayout_2.addWidget(self.showindex)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.ButtonChange = QtWidgets.QPushButton(Form)
@@ -82,3 +84,4 @@ class Ui_Form(object):
         self.ButtonChange.setText(_translate("Form", "Поменять вид"))
         self.dischangeButton.setText(_translate("Form", "сброс"))
         self.ButtonSearch.setText(_translate("Form", "Поиск"))
+

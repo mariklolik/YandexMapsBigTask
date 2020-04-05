@@ -1,4 +1,4 @@
-import sys, os, requests
+import sys, os, requests, json
 
 from ui_py.MainWindow import Ui_Form
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
@@ -27,24 +27,29 @@ class MainWindow(QWidget, Ui_Form):
         self.getImage(*self.pars)
         self.setImage()
         self.dischangeButton.clicked.connect(self.dischange)
+        self.showindex.clicked.connect(self.setempty)
+
+    def setempty(self):
+        if not self.showindex.isChecked():
+            self.adress.setText('')
 
     def dischange(self):
-        self.pars[-1] = False
+        self.pars[5] = False
         self.InputSearch.setText("")
         self.adress.setText("")
         self.getImage(*self.pars)
         self.setImage()
 
-    def toFixed(numObj, digits=3):
-        return f"{numObj:.{digits}f}"
-
     def searchCity(self):
         self.pars[-1] = True
         CityName = self.InputSearch.text()
-        self.setCoordinates_setSpn(CityName)
-        self.getImage(*self.pars)
-        self.setImage()
-        self.disable_buttons(True)
+        try:
+            self.setCoordinates_setSpn(CityName)
+            self.getImage(*self.pars)
+            self.setImage()
+            self.disable_buttons(True)
+        except Exception:
+            pass
 
     def setCoordinates_setSpn(self, city_name):
         toponym_to_find = city_name
@@ -65,12 +70,14 @@ class MainWindow(QWidget, Ui_Form):
         if self.showindex.isChecked():
             try:
                 adress += ", " + \
-                      json_response["response"]["GeoObjectCollection"]["featureMember"][0][
-                          "GeoObject"][
-                          "metaDataProperty"][
-                          "GeocoderMetaData"]["Address"]["postal_code"]
+                          json_response["response"]["GeoObjectCollection"]["featureMember"][0][
+                              "GeoObject"][
+                              "metaDataProperty"][
+                              "GeocoderMetaData"]["Address"]["postal_code"]
             except KeyError:
                 pass
+        else:
+            adress = ''
         self.adress.setText(adress)
         toponym_coodrinates = toponym["Point"]["pos"]
         toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
@@ -89,8 +96,8 @@ class MainWindow(QWidget, Ui_Form):
 
     def getImage(self, long=83.780402, lat=53.345144, spn1=0.02, spn2=0.02, typ='map', pt=None):
         map_api_server = 'http://static-maps.yandex.ru/1.x/'
-        map_params = {"ll": f'{long},{lat}',
-                      "spn": f"{spn1},{spn2}",
+        map_params = {"ll": f'{str(long)},{str(lat)}',
+                      "spn": f"{str(spn1)},{str(spn2)}",
                       "l": typ}
         if pt:
             map_params['pt'] = f'{self.mc[0]},{self.mc[1]},pm2dgl'
@@ -186,6 +193,70 @@ class MainWindow(QWidget, Ui_Form):
             except ValueError:
                 self.pars[0] -= self.pars[2]
             self.disable_buttons(False)
+
+    def getDegrees(self, x, y):
+        spn_x, spn_y = float(self.pars[2]), float(self.pars[3])
+        one_pixel_x, one_pixel_y = spn_x / 620, spn_y / 450
+        latitude = float(self.pars[0]) - spn_x + x * one_pixel_x * 2
+        longitude = float(self.pars[1]) + spn_y - y * one_pixel_y * 2
+        self.pars[0] = latitude
+        self.pars[1] = longitude
+
+    def mousePressEvent(self, event):
+
+        x, y = event.x() - 11, event.y() - 12
+        self.getDegrees(x, y)
+
+        if event.button() == Qt.LeftButton:
+            self.getImage(*self.pars)
+            self.setImage()
+        elif event.button() == Qt.RightButton:
+            try:
+                name = self.getPlaceName()
+                self.findOrg(name)
+                self.getImage(*self.pars)
+                self.setImage()
+            except:
+                print('you died')
+
+    def getPlaceName(self):
+        addr = str(self.pars[0]) + ',' + str(self.pars[1])
+        geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
+        geocoder_params = {
+            "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
+            "geocode": addr,
+            "format": "json"}
+        response = requests.get(geocoder_api_server, params=geocoder_params)
+        json_response = response.json()
+        name = json_response["response"]["GeoObjectCollection"][
+            "featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["formatted"]
+        return name
+
+    def findOrg(self, name):
+        search_api_server = "https://search-maps.yandex.ru/v1/"
+        api_key = "dda3ddba-c9ea-4ead-9010-f43fbc15c6e3"
+        search_params = {
+            "apikey": api_key,
+            "lang": "ru_RU",
+            "text": name,
+            "type": "biz"
+        }
+        response = requests.get(search_api_server, params=search_params)
+        if not response:
+            print("Ошибка выполнения запроса:")
+            print(response.url)
+            print("Http статус:", response.status_code, "(", response.reason, ")")
+            sys.exit(1)
+        json_response = response.json()
+
+        organization = json_response["features"][0]
+        # Получаем координаты ответа.
+        info = organization['properties']['CompanyMetaData']
+        org_name = info['name']
+        self.adress.setText(org_name)
+        points = organization["geometry"]["coordinates"]
+        self.pars[0] = points[0]
+        self.pars[1] = points[1]
 
 
 a = QApplication(sys.argv)
